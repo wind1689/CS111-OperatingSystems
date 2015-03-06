@@ -1,0 +1,46 @@
+CS111 Lab1 Note
+
+NAME: Shijian ZHENG
+UID: 804514110
+
+LAB 1A
+1.Running the following commands to show the testing result
+1) make clean
+2) make WERROR_CFLAGS=
+3) ./profsh -t script.sh
+
+2.My program main idea
+1) Construct a linked list to store the commands;
+2) read the shell script to construct several token lists;
+3) Each token list can be recognized as different types of command;
+4) Base on the recognization, construct the command with that type;
+5) Put the command into the command node;
+4) When all the command nodes are linked, the whole command linked list is done;
+
+3.My program limitation
+1) The size of token list is fixed, I can not use the checked_realloc function to resize the token list.
+
+
+LAB 1B
+1.My program main idea
+1) The main idea of my program is using different child process to execute each command, which can ensure the isolation of each command;
+
+2) For execute_command(): According to the type of command, execute it differently;
+
+3) For execute_simple_command(): Create a child process to execute this command by using the execvp() function;
+
+4) For execute_sequence_command(): Create a child process to execute command A. Then create another child process to execute command B;
+
+5) For execute_pipe_command(): Establish a pipe in parent process first. Then create child1 process to execute command A and child2 process to execute command B;
+
+6) For execute_subshell_command(): Create a child process to execute command A;
+
+7) For execute_while_command(): Create child1 process to execute command A. If the status of command A is not equal to 0, exit the while command. Otherwise, create child2 process to execute command B and repeat the procedures above;
+
+8) For execute_until_command(): Create child1 process to execute command A. If the status of command A is equal to 0, exit the while command. Otherwise, create child2 process to execute command B and repeat the procedures above;
+
+9) For execute_if_command(): First create child1 process to execute command A. If the status of command A is equal to 0, create child2 process to execute command B. Otherwise, if command C exists, create child3 process to execute command C.
+
+10) For File IO Setting: Since each command is isolated, I only need to add IOsetting(c) instruction before the command execution;
+
+11) Reason for two IOsetting functions: When I deal with the problem of if_command file IO, the output of command B is needed to append after the output of command A in file. Therefore, I add the function IOsetting_APPEND();

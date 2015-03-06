@@ -1,0 +1,20 @@
+CS111 Lab1 Note
+
+NAME: Shijian ZHENG
+UID: 804514110
+
+1.Running the following commands to show the testing result
+	1) make clean
+	2) make WERROR_CFLAGS=
+	3) ./profsh -t script.sh
+
+2.My program main idea
+	1) Construct a linked list to store the commands;
+	2) read the shell script to construct several token lists;
+	3) Each token list can be recognized as different types of command;
+	4) Base on the recognization, construct the command with that type;
+	5) Put the command into the command node;
+	4) When all the command nodes are linked, the whole command linked list is done;
+
+3.My program limitation
+	1) The size of token list is fixed, I can not use the checked_realloc function to resize the token list.
